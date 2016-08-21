@@ -54,118 +54,14 @@
 	<script type="text/javascript">
 			alert("init");
 
-		window.onerror = function(message, source, lineno, colno, error) {
-			alert(message + " - line: " + lineno + " col: " + colno);
-		}
-
 		function main() {
 
 			alert("0");
 
-			window.state = {
-				currentIndex: 0,
-				checked: {}
-			};
-
-			alert("1");
-
-			var html = makeHtmlFromTreningsprogram(document.getElementsByTagName("section")[0].innerHTML);
-
-			alert("2");
-			document.getElementsByTagName("section")[0].innerHTML = html;
-
-			alert("3");
-			setStateFromLocalStorage();
-
-			alert("4");
-			showCurrent();
-
-			alert("5");
-			setUpButtons();
-
-			alert("6");
+			
 		}
 
-		function setStateFromLocalStorage() {
-			var storedState = JSON.parse(localStorage.getItem("state"));
-			for (var key in storedState) {
-				if (storedState.hasOwnProperty(key) )
-				state[key] = storedState[key];
-			}
-		}
-
-		function saveStateToLocalStorage() {
-			localStorage.setItem("state", JSON.stringify(state));
-		}
-
-		function makeHtmlFromTreningsprogram(src) {
-			var div = "";
-			var divs = "";
-			for (var line of src.split("\n")) {
-				line = line.trim();
-
-				if (line.length == 0) continue;
-				
-				if (line[0] == "#") {
-					if (div.length > 0) divs += "<div>" + div + "</div>";
-					div = "<h1>" + line.substring(1).trim() + "</h1>";
-				} else if (line[0] == "-") {
-					div += "<li>" + line.substring(1).trim() + "</li>";
-				} else {
-					div += "<p>" + line + "</p>";
-				}
-			}
-			divs += "<div>" + div + "</div>";
-			return divs;
-		}
-
-		function setUpButtons() {
-			document.getElementById("previous").addEventListener("click", function() {
-				state.currentIndex = Math.max(0, state.currentIndex - 1);
-				showCurrent();
-			});
-
-			document.getElementById("next").addEventListener("click", function() {
-				var maxIndex = document.getElementsByTagName("div").length - 1;
-				state.currentIndex = Math.min(maxIndex, state.currentIndex + 1);
-				showCurrent();
-			});
-
-			document.getElementById("check").addEventListener("click", function() {
-				if (state.checked[state.currentIndex]) {
-					delete state.checked[state.currentIndex];
-				} else {
-					state.checked[state.currentIndex] = new Date().toISOString();
-				}
-				saveStateToLocalStorage();
-				showCurrent();
-			});
-		}
-
-		function showCurrent() {
-			var divs = document.getElementsByTagName("div");
-			for (var i = 0; i < divs.length; i++) {
-				divs[i].classList.add("hidden");
-				if (i == state.currentIndex) {
-					divs[i].classList.remove("hidden");
-				}
-			}
-			if (state.checked[state.currentIndex]) {
-				checkedDateString = "&#10004; " + formatDate(new Date(state.checked[state.currentIndex]));
-			} else {
-				checkedDateString = "";
-			}
-
-			document.getElementsByTagName("header")[0].innerHTML = checkedDateString;
-		}
-
-		function formatDate(date) {
-			var addZero = (num) => num < 10 ? '0' + num : num;
-
-			var day = addZero(date.getDate());
-			var month = addZero(date.getMonth()+1)
-			return day + "." + month + "." + date.getFullYear();
-		}
+		
 	</script>
 </head>
 <body onload="main();">
