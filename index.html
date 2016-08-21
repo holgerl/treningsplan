@@ -116,6 +116,29 @@
 			return divs;
 		}
 
+		function setUpButtons() {
+			document.getElementById("previous").addEventListener("click", function() {
+				state.currentIndex = Math.max(0, state.currentIndex - 1);
+				showCurrent();
+			});
+
+			document.getElementById("next").addEventListener("click", function() {
+				var maxIndex = document.getElementsByTagName("div").length - 1;
+				state.currentIndex = Math.min(maxIndex, state.currentIndex + 1);
+				showCurrent();
+			});
+
+			document.getElementById("check").addEventListener("click", function() {
+				if (state.checked[state.currentIndex]) {
+					delete state.checked[state.currentIndex];
+				} else {
+					state.checked[state.currentIndex] = new Date().toISOString();
+				}
+				saveStateToLocalStorage();
+				showCurrent();
+			});
+		}
+
 		function showCurrent() {
 			var divs = document.getElementsByTagName("div");
 			for (var i = 0; i < divs.length; i++) {
