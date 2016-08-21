@@ -62,11 +62,23 @@
 				checked: {}
 			};
 
+			alert("1");
+
 			var html = makeHtmlFromTreningsprogram(document.getElementsByTagName("section")[0].innerHTML);
+
+			alert("2");
 			document.getElementsByTagName("section")[0].innerHTML = html;
+
+			alert("3");
 			setStateFromLocalStorage();
+
+			alert("4");
 			showCurrent();
+
+			alert("5");
 			setUpButtons();
+
+			alert("6");
 		}
 
 		function setStateFromLocalStorage() {
