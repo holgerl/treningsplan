@@ -52,11 +52,16 @@
 	</style>
 
 	<script type="text/javascript">
+			alert("init");
+
 		window.onerror = function(message, source, lineno, colno, error) {
 			alert(message + " - line: " + lineno + " col: " + colno);
 		}
 
 		function main() {
+
+			alert("0");
+
 			window.state = {
 				currentIndex: 0,
 				checked: {}
