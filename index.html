@@ -77,6 +77,10 @@
 			alert("3");
 			setStateFromLocalStorage();
 
+			alert("4");
+			showCurrent();
+
+			alert("5");
 		}
 
 		function setStateFromLocalStorage() {
@@ -110,6 +114,23 @@
 			}
 			divs += "<div>" + div + "</div>";
 			return divs;
+		}
+
+		function showCurrent() {
+			var divs = document.getElementsByTagName("div");
+			for (var i = 0; i < divs.length; i++) {
+				divs[i].classList.add("hidden");
+				if (i == state.currentIndex) {
+					divs[i].classList.remove("hidden");
+				}
+			}
+			if (state.checked[state.currentIndex]) {
+				checkedDateString = "&#10004; ";
+			} else {
+				checkedDateString = "";
+			}
+
+			document.getElementsByTagName("header")[0].innerHTML = checkedDateString;
 		}
 	</script>
 </head>
