@@ -52,38 +52,21 @@
 	</style>
 
 	<script type="text/javascript">
-			alert("init");
-
 		window.onerror = function(message, source, lineno, colno, error) {
 			alert(message + " - line: " + lineno + " col: " + colno);
 		}
 
 		function main() {
-
-			alert("0");
-
 			window.state = {
 				currentIndex: 0,
 				checked: {}
 			};
 
-			alert("1");
-
 			var html = makeHtmlFromTreningsprogram(document.getElementsByTagName("section")[0].innerHTML);
-
-			alert("2");
 			document.getElementsByTagName("section")[0].innerHTML = html;
-
-			alert("3");
 			setStateFromLocalStorage();
-
-			alert("4");
 			showCurrent();
-
-			alert("5");
 			setUpButtons();
-
-			alert("6");
 		}
 
 		function setStateFromLocalStorage() {
@@ -151,12 +134,22 @@
 				}
 			}
 			if (state.checked[state.currentIndex]) {
-				checkedDateString = "&#10004; ";
+				checkedDateString = "&#10004; " + formatDate(new Date(state.checked[state.currentIndex]));
 			} else {
 				checkedDateString = "";
 			}
 
 			document.getElementsByTagName("header")[0].innerHTML = checkedDateString;
+		}
+
+		function formatDate(date) {
+			function addZero(num) {
+				return num < 10 ? '0' + num : num;
+			}
+
+			var day = addZero(date.getDate());
+			var month = addZero(date.getMonth()+1)
+			return day + "." + month + "." + date.getFullYear();
 		}
 	</script>
 </head>
